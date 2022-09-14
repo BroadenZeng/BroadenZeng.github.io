@@ -1,32 +1,64 @@
-#nihao {
+.nihao {
+	/* 表格 */
 	/* top: 50%;
 	left: 20%; */
 	/* margin-top:40px;
 	margin-left:40px; */
 	/* border: 1px solid #000; */
-	border-collapse: collapse; /* 表格间空白无 */
-    /* float:left; */
+	border-collapse: collapse;
+	/* 表格间空白无 */
+	/* float:left; */
 	border: 1;
-	height: 300px;
-	width: 400px;
+	height: 400px;
+	width: 800px;
 	text-align: center;
 	margin: 0 auto;
-		/* display: inline; */
+	font-size: larger;
+	/* display: inline; */
 }
 
-#nihao tr td,th{      /* 所有表格加边框 */
+.nihao tr td,
+th {
+	/* 所有表格加边框 */
 	border: 1px solid #000;
 }
 
-#sheep {
-/* 	position: absolute;
+#a1 {
+	/* 躺图 */
+	/* 	position: absolute;
 	top: 230px;
 	left: 900px; */
-	height: 90px;
-    /* float: right; */
+	width: 300px;
+	/* display: inline; */
+	/* height: 90px; */
+	/* float: right; */
 }
 
-/* .nav a {
-	display:inline-block;
-	width: 120px;
-} */
+#a2 {
+	/* 	position: absolute;
+		top: 230px;
+		left: 900px; */
+	width: 70%;
+	/* height: 90px; */
+	/* display: inline; */
+	/* float: right; */
+}
+
+#tang {
+	/* 躺表格 */
+	width: 300px;
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	border-bottom: none;
+	/* border: 0px solid #000; */
+}
+
+#kongbai {
+	/* 躺表格 */
+	width: 50px;
+	border-right: none;
+	border-top: none;
+	border-bottom: none;
+	/* border: 0px solid #000; */
+}
