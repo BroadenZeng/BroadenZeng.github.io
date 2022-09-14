@@ -47,10 +47,16 @@ th {
 #tang {
 	/* 躺表格 */
 	width: 300px;
+
 	border-left: none;
+	/* 左边框线; */
 	border-right: none;
+	/* 右边框线; */
 	border-top: none;
+	/* 上边框线; */
 	border-bottom: none;
+	/* 下边框线; */
+
 	/* border: 0px solid #000; */
 }
 
