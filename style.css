@@ -25,24 +25,9 @@ th {
 
 #a1 {
 	/* 躺图 */
-	/* 	position: absolute;
-	top: 230px;
-	left: 900px; */
 	width: 300px;
-	/* display: inline; */
-	/* height: 90px; */
-	/* float: right; */
 }
 
-#a2 {
-	/* 	position: absolute;
-		top: 230px;
-		left: 900px; */
-	width: 70%;
-	/* height: 90px; */
-	/* display: inline; */
-	/* float: right; */
-}
 
 #tang {
 	/* 躺表格 */
@@ -67,4 +52,114 @@ th {
 	border-top: none;
 	border-bottom: none;
 	/* border: 0px solid #000; */
+}
+
+
+a {
+	text-decoration: none;
+}
+
+body {
+	font: 13px/1.5 Helvetica Neue, Helvetica, Arial, Microsoft Yahei, Hiragino Sans GB, Heiti SC, WenQuanYi Micro Hei, sans-serif;
+	color: #333;
+	background-color: #fff;
+	min-width: 1226px;
+}
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+button,
+textarea,
+p,
+blockquote,
+th,
+td {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	background: #fff;
+	color: #555;
+	font-size: 14px;
+	font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
+}
+
+.topbarwrapper {
+	width: 100%;
+	height: 40px;
+	line-height: 40px;
+	background-color: #333333;
+}
+
+.topbar {
+	position: relative;
+}
+
+.topbar a {
+	font-size: 12px;
+	color: #b0b0b0;
+	display: block;
+}
+
+.topbar li {
+	float: left;
+}
+
+.topbar .line {
+	color: #424242;
+	font-size: 12px;
+	margin: 0 8px;
+
+}
+
+.w {
+	width: 1226px;
+	margin: 0 auto;
+}
+
+
+
+.clearfix::before,
+.clearfix::after {
+	content: '';
+	display: table;
+	clear: both;
+}
+
+.service,
+
+
+ol,
+ul,
+li {
+	list-style: none;
+}
+
+.service,
+
+
+
+
+.service,
+.topbar li {
+	float: left;
 }
