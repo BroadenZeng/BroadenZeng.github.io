@@ -1,5 +1,5 @@
 body {
-    width: 50%;
+    width: 100%;
     min-height: 100vh;
     vertical-align: baseline;
     word-wrap: break-word;
@@ -17,6 +17,14 @@ body {
     color: #212529;
     text-align: left;
     background-color: #fff
+}
+
+.lbui1 {
+    width: 70%;
+    /* 屏幕占比 */
+    margin: auto;
+    margin-top: 200px;
+    /* 居中  */
 }
 
 .mt-4,
@@ -336,4 +344,24 @@ img {
     box-shadow: 0 26px 40px -24px rgba(0, 36, 100, .3);
     -webkit-box-shadow: 0 26px 40px -24px rgba(0, 36, 100, .3);
     -moz-box-shadow: 0 26px 40px -24px rgba(0, 36, 100, .3);
+}
+
+.url-card .mini a.togo,
+.url-card .default a.togo {
+    position: absolute;
+    top: 20px;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    opacity: .2;
+    transition: opacity .3s;
+}
+
+.text-muted {
+    color: #6c757d !important;
+}
+
+.text-center {
+    text-align: center !important;
 }
