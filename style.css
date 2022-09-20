@@ -23,7 +23,7 @@ body {
     width: 70%;
     /* 屏幕占比 */
     margin: auto;
-    margin-top: 200px;
+    margin-top: 80px;
     /* 居中  */
 }
 
@@ -364,4 +364,37 @@ img {
 
 .text-center {
     text-align: center !important;
+}
+
+
+.user-input {
+    width: 400px;
+    height: 50px;
+    border: 2px solid black;
+    border-radius: 5px;
+    box-sizing: border-box;
+    outline: none;
+    text-indent: 10px;
+}
+
+.user-btn {
+    width: 80px;
+    height: 52px;
+    border: none;
+    border-radius: 5px;
+    background: black;
+    margin-left: -8px;
+    margin-bottom: 2px;
+    vertical-align: middle;
+    outline: none;
+    color: white;
+    font-size: 20px;
+}
+
+.lbui2 {
+    width: 478px;
+    /* 屏幕占比 */
+    margin: 0 auto;
+    margin-top: 100px;
+    /* 居中  */
 }
