@@ -107,7 +107,7 @@
   transition: background 0.2s ease-out;
 }
 .N {
-  padding: 12px 0 72px;
+  padding: 70px 0 70px;
 }
 .O {
   position: relative;
@@ -344,7 +344,7 @@
 }
 .la {
   position: relative;
-  max-width: 1130px;
+  /* max-width: 1130px; */
   padding: 0 40px;
   margin: 0 auto;
   overflow: hidden;
@@ -417,6 +417,7 @@
   color: var(--secondary-color);
   align-items: center;
   flex: 0 0 10%;
+  justify-content: center;
 }
 
 .ra:after {
@@ -441,6 +442,7 @@
 .va {
   max-width: 16.666667%;
   flex: 0 0 16.666667%;
+  text-align: center;
 }
 .wa {
   text-align: center;
