@@ -1,2 +1,7 @@
-你好丫  
-![](https://img.shields.io/badge/%E7%89%9B%E9%80%BC-%E6%98%8E%E7%88%B7-green)
+# **精简的主页设计**
+
+只需要static文件夹、index.html、styles.css
+
+
+
+设计参考于网址：https://0x3.com/
