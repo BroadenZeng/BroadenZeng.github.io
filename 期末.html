@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考试时间显示</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background-color: #e0f7fa;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: #ffffff;
+            border: 2px solid #00796b;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+        }
+        .header, .content, .footer {
+            margin-bottom: 20px;
+        }
+        .clock {
+            font-size: 48px;
+            margin: 20px 0;
+            color: #d32f2f;
+        }
+        .exam-info {
+            font-size: 24px;
+            margin: 10px 0;
+            color: #004d40;
+        }
+        .exam-subject {
+            font-weight: bold;
+            font-size: 26px;
+            color: #00796b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="exam-info exam-subject">考试科目：线性代数</div>
+        </div>
+        <div class="content">
+            <div class="exam-info">考试时间：09:00 - 12:00</div>
+        </div>
+        <div class="footer">
+            <div class="clock" id="clock"></div>
+        </div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const clockElement = document.getElementById('clock');
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            clockElement.textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>
+</body>
+</html>
+

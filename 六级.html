@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考试流程安排</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 800px;
+        }
+        .time-block {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .time-block span {
+            color: #000;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 5px;
+        }
+        .time-block div {
+            padding: 10px;
+            background-color: #000;
+            color: #fff;
+            border-radius: 5px;
+            width: 80%;
+        }
+        .info-block {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .info-block div {
+            background-color: #fff;
+            color: #000;
+            border: 1px solid #000;
+            border-radius: 5px;
+            padding: 10px;
+            width: 45%;
+            box-sizing: border-box;
+        }
+        #current-time {
+            color: red;
+            font-size: 1.5em;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="time-block">
+        <span>15:00</span>
+        <div>将试题册背面的条形码揭下后粘贴在答题卡1的条形码粘贴框内，并填写（涂）试题册封底、答题卡1和答题卡2上的学校名称、姓名及准考证号</div>
+    </div>
+    <div class="time-block">
+        <span>15:10</span>
+        <div>考试正式开始</div>
+    </div>
+    <div class="time-block">
+        <span>15:10-15:40</span>
+        <div>在答题卡1上完成写作部分（用黑色字迹签字笔做答）</div>
+    </div>
+    <div class="time-block">
+        <span>15:40</span>
+        <div>听力考试正式开始，打开试题册，带上耳机（边听边在答题卡1上作答）</div>
+    </div>
+    <div class="time-block">
+        <span>16:10</span>
+        <div>听力考试结束，摘下耳机，停止作答，回收答题卡1</div>
+    </div>
+    <div class="time-block">
+        <span>16:15</span>
+        <div>在答题卡2上继续作答</div>
+    </div>
+    <div class="time-block">
+        <span>17:25</span>
+        <div>考试结束，停止答题</div>
+    </div>
+    <div class="info-block">
+        <div>请考生注意：考生在规定时间之前翻阅试题册的将视为违规。手机等通讯设备不得带入考场，否则一经发现将作作弊论处。听力频道为84.1MHZ</div>
+        <div>
+            北京时间：
+            <span id="current-time"></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function updateTime() {
+        const now = new Date();
+        const hours = now.getHours().toString().padStart(2, '0');
+        const minutes = now.getMinutes().toString().padStart(2, '0');
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        const timeString = `${hours}:${minutes}:${seconds}`;
+        document.getElementById('current-time').textContent = timeString;
+    }
+    setInterval(updateTime, 1000);
+</script>
+
+</body>
+</html>
