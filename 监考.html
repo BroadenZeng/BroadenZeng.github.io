@@ -9,6 +9,14 @@ var _hmt = _hmt || [];
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
 })();
+	function editParagraph(paragraph) {
+            // 提示用户输入新文本
+            let newText = prompt("请输入新的段落文本:", paragraph.innerText);
+            // 如果用户输入了新文本，则更新段落内容
+            if (newText !== null && newText.trim() !== "") {
+                paragraph.innerText = newText;
+            }
+        };
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Cache-Control" content="no-transform"/>
@@ -69,8 +77,8 @@ p.bolder{font-weight:bolder}
 <div class="fill">
   <div class="reference"></div>
   <div class="combined-block">
-  <p class="bold move-down">考试科目：线性代数</p>
-  <p class="bold">考试时间：09:30-12:30</p>
+  <p class="bold move-down" onclick="editParagraph(this)">考试科目：线性代数</p>
+  <p class="bold" onclick="editParagraph(this)">考试时间：09:30-12:30</p>
   </div>
   <div class="clock" id="utility-clock" style="transform: scale(2.492);">
     <div class="centre">
