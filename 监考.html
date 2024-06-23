@@ -11,7 +11,7 @@ var _hmt = _hmt || [];
 })();
 	function editParagraph(paragraph) {
             // 提示用户输入新文本
-            let newText = prompt("请输入新的段落文本:", paragraph.innerText);
+            let newText = prompt("请输入新文本:(按F11浏览器开启全屏)", paragraph.innerText);
             // 如果用户输入了新文本，则更新段落内容
             if (newText !== null && newText.trim() !== "") {
                 paragraph.innerText = newText;
