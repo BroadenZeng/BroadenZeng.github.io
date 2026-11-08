@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
@@ -124,6 +124,7 @@
 
 
     <div class="la" style="background: var(--block-background);">
+        <button class="editor-open" id="open-link-editor" type="button" aria-label="编辑网址">编辑</button>
 
         <div class="pa Aa" style="padding-top: 64px;">
             <div class="qa">
@@ -234,6 +235,24 @@
         </div>
     </div>
     </div>
+    <dialog class="link-editor" id="link-editor" aria-labelledby="editor-title">
+        <div class="editor-panel">
+            <header class="editor-header">
+                <h2 id="editor-title">编辑网址</h2>
+                <button class="editor-close" id="close-link-editor" type="button" aria-label="关闭">×</button>
+            </header>
+            <p class="editor-note">修改只保存在当前浏览器，不会上传。</p>
+            <div class="editor-categories" id="editor-categories"></div>
+            <div class="editor-actions">
+                <button class="editor-button" id="add-category" type="button">添加分类</button>
+                <button class="editor-button" id="restore-defaults" type="button">恢复原始列表</button>
+            </div>
+            <footer class="editor-footer">
+                <button class="editor-button" id="cancel-link-editor" type="button">取消</button>
+                <button class="editor-button editor-save" id="save-link-editor" type="button">保存</button>
+            </footer>
+        </div>
+    </dialog>
 </body>
 
 
@@ -410,6 +429,284 @@ document.addEventListener('click',()=>{
             });
         });
     });
+</script>
+
+<script>
+(() => {
+    const storageKey = "broaden-homepage-links-v1";
+    const editor = document.getElementById("link-editor");
+    const editorList = document.getElementById("editor-categories");
+    const mainList = document.querySelector(".pa.Aa");
+    const defaultData = [{"id":"54c02c57-a055-4b00-8a27-ed5b6fab92a0","name":"科研","links":[{"id":"5ea81830-eef4-4568-b2bd-cc23a03b981b","name":"Sci-Hub","url":"https://sci-hub.jp/","icon":"img/Sci-Hub.ico","description":"期刊文献下载网站,大部分老文献都能利用doi号在此下载"},{"id":"5bb1d5fc-42ad-4c8c-a1bf-c3587c230454","name":"Z-libiary","url":"http://zh.101su.ru/","icon":"img/书籍.png","description":"外文书籍下载网站"},{"id":"4637fcc4-55a5-4fd8-a8c9-73dcc25e717a","name":"语义学术","url":"https://www.semanticscholar.org/","icon":"img/语义学术.ico","description":"搜寻文献网站"},{"id":"a94ae429-84b2-45b3-8f07-81ce6278b45f","name":"熊猫学术","url":"https://sc.panda985.com/index.html","icon":"img/熊猫学术.png","description":"谷歌学术镜像"},{"id":"35cbd306-4a83-45cc-a644-5936152f535b","name":"数学评论","url":"https://mathscinet.ams.org/mathscinet?version=2","icon":"img/Letpud.ico","description":"文献分析系统"},{"id":"18f9ee2e-9878-4309-80d4-0a3d10d5a1cd","name":"文献互助","url":"https://www.ablesci.com/journal","icon":"img/其他网址.png","description":""}]},{"id":"ba27014e-9eeb-40f0-a80c-aae64533f1fd","name":"工作","links":[{"id":"73b2ac27-00f6-40cc-bf73-165c144de8b9","name":"通知公告","url":"https://www.jyu.edu.cn/sydt/tzgg.htm","icon":"img/维基百科.png","description":"镜像好难找啊"},{"id":"6667ed93-3991-4bc1-9646-d9979740cef0","name":"学校主页","url":"https://www.jyu.edu.cn/sy.htm","icon":"img/学校.png","description":"嘉应学院网站"},{"id":"8c49f5bc-1d79-4e9b-a361-058e243e5c2b","name":"嘉应数院","url":"https://math.jyu.edu.cn/","icon":"img/数学.png","description":"嘉应学院数学学院网站"},{"id":"a55a83b3-f106-46d4-a7ab-3633d5986b98","name":"教务系统","url":"https://jwcjwxt.jyu.edu.cn","icon":"img/教务处.png","description":"教务处"},{"id":"9b6f44e1-702b-4b66-939e-5ebaea995f09","name":"校园vpn","url":"https://webvpn.jyu.cn/","icon":"img/学习通.png","description":"学习通"},{"id":"2b89373b-7508-4151-8136-efba0f5e9de0","name":"毕论管理","url":"https://co2.cnki.net/Login.html?dp=jyu&r=1745574404229","icon":"img/线性代数.png","description":"线性代数课程"}]},{"id":"2d0f2fe4-17f7-4ea1-acdb-7626bd057f6c","name":"闲余","links":[{"id":"70a0af54-82a7-4923-8e01-47c243c63105","name":"知乎热问","url":"https://www.zhihu.com/knowledge-plan/hot-question/hot/0/hour","icon":"img/知乎.png","description":"知乎，分享刚编的故事~"},{"id":"e474d485-19ed-439e-9070-03d968d072f9","name":"哔哩榜单","url":"https://www.bilibili.com/v/popular/rank/all","icon":"img/哔哩.png","description":"哔哩哔哩啊"},{"id":"83130fcc-ed64-4a87-817a-09136c1d81b6","name":"吾爱破解","url":"https://www.52pojie.cn/forum.php","icon":"img/吾爱破解.png","description":"这个网站很多不错的软件"},{"id":"aa9bfb11-ae14-412d-a24b-7d8d52398781","name":"云中小屋","url":"https://weiviming.github.io/","icon":"img/明爷.png","description":"明爷高贵的房产！！！"},{"id":"ab6049e6-6bdb-4192-add8-ed1d7e1609f5","name":"新闻热榜","url":"https://tophub.today/c/news","icon":"img/新闻榜单.png","description":"新闻集合"}]},{"id":"737df056-7ad4-488d-91fc-8ef483371375","name":"神器","links":[{"id":"42b9b8fc-b693-46f8-8b9f-31aec35a9c20","name":"MATLAB","url":"https://octave-online.net/","icon":"img/matlab.png","description":"在线MATLAB"},{"id":"7699f028-9f6e-4a09-9f39-c555f268e30b","name":"GitHub","url":"https://github.com/BroadenZeng/BroadenZeng.github.io","icon":"img/github.png","description":"个人空间"}]},{"id":"fac95f13-8e71-4580-ac14-222586a13ab7","name":"AI","links":[{"id":"5e653cfd-b7c4-405b-bb24-9d4ca5302458","name":"ChatGPT","url":"https://chatgpt.com/","icon":"img/其他网址.png","description":""},{"id":"1eb9c42b-1f2f-4316-a33b-b6613337c425","name":"DeepSeek","url":"https://chat.deepseek.com","icon":"img/其他网址.png","description":""},{"id":"31ef8170-01ea-43cb-8f2b-79095704f5d5","name":"元宝","url":"https://yuanbao.tencent.com/chat/naQivTmsDa","icon":"img/其他网址.png","description":""},{"id":"5886cb33-24f8-4332-a802-4f86cf82e90d","name":"千问","url":"https://www.qianwen.com/","icon":"img/其他网址.png","description":""},{"id":"211084da-e196-438e-bff4-4147f6d905e2","name":"kimi","url":"https://www.kimi.com/chat/history","icon":"img/其他网址.png","description":""}]}];
+    let savedData = loadSavedData() || copy(defaultData);
+    let draft = copy(savedData);
+
+    function makeId() {
+        return window.crypto && crypto.randomUUID
+            ? crypto.randomUUID()
+            : "item-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    }
+
+    function copy(value) {
+        return JSON.parse(JSON.stringify(value));
+    }
+
+    function readPageData() {
+        return Array.from(mainList.querySelectorAll(":scope > .qa")).map(categoryElement => ({
+            id: makeId(),
+            name: categoryElement.querySelector(".ta")?.textContent.trim() || "未命名分类",
+            links: Array.from(categoryElement.querySelectorAll(".ua > .va")).map(item => {
+                const anchor = item.querySelector("a");
+                return {
+                    id: makeId(),
+                    name: anchor?.querySelector(".Ca")?.textContent.trim() || "未命名网址",
+                    url: anchor?.getAttribute("href") || "",
+                    icon: anchor?.querySelector("img")?.getAttribute("src") || "img/其他网址.png",
+                    description: anchor?.getAttribute("title") || ""
+                };
+            })
+        }));
+    }
+
+    function loadSavedData() {
+        try {
+            const value = JSON.parse(localStorage.getItem(storageKey));
+            if (!Array.isArray(value) || !value.every(group => Array.isArray(group.links))) return null;
+            return value;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function renderHome() {
+        mainList.replaceChildren();
+        savedData.forEach(category => {
+            const row = document.createElement("div");
+            row.className = "qa";
+            const label = document.createElement("div");
+            label.className = "ra";
+            const heading = document.createElement("span");
+            heading.className = "ta";
+            heading.textContent = category.name;
+            label.append(heading);
+            const list = document.createElement("ul");
+            list.className = "ua";
+
+            category.links.forEach(link => {
+                const item = document.createElement("li");
+                item.className = "va";
+                const anchor = document.createElement("a");
+                anchor.className = "xa";
+                anchor.href = link.url;
+                anchor.target = "_blank";
+                anchor.rel = "noopener noreferrer";
+                if (link.description) anchor.title = link.description;
+                const icon = document.createElement("img");
+                icon.className = "ya";
+                icon.src = link.icon || "img/其他网址.png";
+                icon.alt = "";
+                const name = document.createElement("span");
+                name.className = "Ca";
+                name.textContent = link.name;
+                anchor.append(icon, name);
+                item.append(anchor);
+                list.append(item);
+            });
+
+            row.append(label, list);
+            mainList.append(row);
+        });
+    }
+
+    function addButton(label, action, categoryId, linkId, title) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "editor-icon-button";
+        button.textContent = label;
+        button.dataset.action = action;
+        if (categoryId) button.dataset.categoryId = categoryId;
+        if (linkId) button.dataset.linkId = linkId;
+        if (title) button.title = title;
+        button.setAttribute("aria-label", title || label);
+        return button;
+    }
+
+    function renderEditor() {
+        editorList.replaceChildren();
+        draft.forEach((category, categoryIndex) => {
+            const section = document.createElement("section");
+            section.className = "editor-category";
+            const header = document.createElement("div");
+            header.className = "editor-category-header";
+            const categoryName = document.createElement("input");
+            categoryName.className = "editor-input editor-category-name";
+            categoryName.value = category.name;
+            categoryName.placeholder = "分类名称";
+            categoryName.setAttribute("aria-label", "分类名称");
+            categoryName.dataset.field = "category-name";
+            categoryName.dataset.categoryId = category.id;
+            header.append(categoryName);
+            header.append(
+                addButton("↑", "move-category-up", category.id, null, "分类上移"),
+                addButton("↓", "move-category-down", category.id, null, "分类下移"),
+                addButton("＋网址", "add-link", category.id, null, "在此分类添加网址"),
+                addButton("删除分类", "delete-category", category.id, null, "删除分类及其中的网址")
+            );
+            section.append(header);
+
+            category.links.forEach((link, linkIndex) => {
+                const row = document.createElement("div");
+                row.className = "editor-link-row";
+                const nameInput = document.createElement("input");
+                nameInput.className = "editor-input editor-link-name";
+                nameInput.value = link.name;
+                nameInput.placeholder = "网址名称";
+                nameInput.setAttribute("aria-label", "网址名称");
+                nameInput.dataset.field = "link-name";
+                nameInput.dataset.categoryId = category.id;
+                nameInput.dataset.linkId = link.id;
+                const urlInput = document.createElement("input");
+                urlInput.className = "editor-input editor-link-url";
+                urlInput.value = link.url;
+                urlInput.placeholder = "https://example.com";
+                urlInput.setAttribute("aria-label", "网址地址");
+                urlInput.dataset.field = "link-url";
+                urlInput.dataset.categoryId = category.id;
+                urlInput.dataset.linkId = link.id;
+                const destination = document.createElement("select");
+                destination.className = "editor-input editor-link-category";
+                destination.setAttribute("aria-label", "所属分类");
+                destination.dataset.action = "move-link-category";
+                destination.dataset.categoryId = category.id;
+                destination.dataset.linkId = link.id;
+                draft.forEach(group => {
+                    const option = document.createElement("option");
+                    option.value = group.id;
+                    option.textContent = group.name;
+                    option.selected = group.id === category.id;
+                    destination.append(option);
+                });
+                row.append(nameInput, urlInput, destination,
+                    addButton("↑", "move-link-up", category.id, link.id, "网址上移"),
+                    addButton("↓", "move-link-down", category.id, link.id, "网址下移"),
+                    addButton("×", "delete-link", category.id, link.id, "删除网址"));
+                if (linkIndex === 0) row.classList.add("first-link");
+                section.append(row);
+            });
+            editorList.append(section);
+        });
+    }
+
+    function findCategory(id) {
+        return draft.find(category => category.id === id);
+    }
+
+    editorList.addEventListener("input", event => {
+        const field = event.target.dataset.field;
+        if (field === "category-name") {
+            const category = findCategory(event.target.dataset.categoryId);
+            if (category) category.name = event.target.value;
+        } else if (field === "link-name" || field === "link-url") {
+            const category = findCategory(event.target.dataset.categoryId);
+            const link = category?.links.find(item => item.id === event.target.dataset.linkId);
+            if (link) link[field === "link-name" ? "name" : "url"] = event.target.value;
+        }
+    });
+
+    editorList.addEventListener("change", event => {
+        if (event.target.dataset.action !== "move-link-category") return;
+        const source = findCategory(event.target.dataset.categoryId);
+        const destination = findCategory(event.target.value);
+        if (!source || !destination || source === destination) return;
+        const index = source.links.findIndex(item => item.id === event.target.dataset.linkId);
+        if (index < 0) return;
+        destination.links.push(source.links.splice(index, 1)[0]);
+        renderEditor();
+    });
+
+    editorList.addEventListener("click", event => {
+        const button = event.target.closest("button[data-action]");
+        if (!button) return;
+        const categoryIndex = draft.findIndex(category => category.id === button.dataset.categoryId);
+        if (categoryIndex < 0) return;
+        const action = button.dataset.action;
+
+        if (action === "move-category-up" && categoryIndex > 0) {
+            [draft[categoryIndex - 1], draft[categoryIndex]] = [draft[categoryIndex], draft[categoryIndex - 1]];
+        } else if (action === "move-category-down" && categoryIndex < draft.length - 1) {
+            [draft[categoryIndex + 1], draft[categoryIndex]] = [draft[categoryIndex], draft[categoryIndex + 1]];
+        } else if (action === "add-link") {
+            draft[categoryIndex].links.push({ id: makeId(), name: "新网址", url: "https://", icon: "img/其他网址.png", description: "" });
+        } else if (action === "delete-category") {
+            if (!window.confirm("删除这个分类及其中的所有网址？")) return;
+            draft.splice(categoryIndex, 1);
+        } else if (action === "delete-link") {
+            const linkIndex = draft[categoryIndex].links.findIndex(item => item.id === button.dataset.linkId);
+            if (linkIndex >= 0) draft[categoryIndex].links.splice(linkIndex, 1);
+        } else if (action === "move-link-up" || action === "move-link-down") {
+            const links = draft[categoryIndex].links;
+            const index = links.findIndex(item => item.id === button.dataset.linkId);
+            const next = action === "move-link-up" ? index - 1 : index + 1;
+            if (index >= 0 && next >= 0 && next < links.length) {
+                [links[index], links[next]] = [links[next], links[index]];
+            }
+        }
+        renderEditor();
+    });
+
+    document.getElementById("open-link-editor").addEventListener("click", () => {
+        draft = copy(savedData);
+        renderEditor();
+        editor.showModal();
+    });
+    function requestEditorClose() {
+        const hasUnsavedChanges = JSON.stringify(draft) !== JSON.stringify(savedData);
+        if (hasUnsavedChanges && !window.confirm("还有未保存的修改。确定放弃并关闭吗？")) return;
+        editor.close();
+    }
+    document.getElementById("close-link-editor").addEventListener("click", requestEditorClose);
+    document.getElementById("cancel-link-editor").addEventListener("click", requestEditorClose);
+    editor.addEventListener("cancel", event => {
+        event.preventDefault();
+        requestEditorClose();
+    });
+    document.getElementById("add-category").addEventListener("click", () => {
+        draft.push({ id: makeId(), name: "新分类", links: [] });
+        renderEditor();
+    });
+    document.getElementById("restore-defaults").addEventListener("click", () => {
+        if (!window.confirm("恢复到页面原始的网址列表？当前浏览器保存的修改会清除。")) return;
+        try {
+            localStorage.removeItem(storageKey);
+            savedData = copy(defaultData);
+            draft = copy(defaultData);
+            renderHome();
+            renderEditor();
+        } catch (error) {
+            window.alert("浏览器暂时无法访问本地保存空间，请换用普通浏览窗口再试。");
+        }
+    });
+    document.getElementById("save-link-editor").addEventListener("click", () => {
+        const allLinks = draft.flatMap(category => category.links);
+        if (!draft.length || draft.some(category => !category.name.trim())) {
+            window.alert("请至少保留一个分类，并填写所有分类名称。");
+            return;
+        }
+        if (allLinks.some(link => !link.name.trim() || !/^https?:\/\//i.test(link.url.trim()))) {
+            window.alert("每个网址都需要填写名称和以 http:// 或 https:// 开头的地址。");
+            return;
+        }
+        try {
+            localStorage.setItem(storageKey, JSON.stringify(draft));
+            savedData = copy(draft);
+            renderHome();
+            editor.close();
+        } catch (error) {
+            window.alert("浏览器无法保存这次修改，请检查本地存储设置后重试。");
+        }
+    });
+    renderHome();
+})();
 </script>
 
 </html>
